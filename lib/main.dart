@@ -1,42 +1,90 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-      home: Scaffold(
-        body: ListaTransferencias(),
-        appBar: AppBar(
-          title: Text('Transferências'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.add),
-        ),
-      ),
-    ));
+void main() => runApp(ByteBankApp());
 
-
-class ListaTransferencias extends StatelessWidget{
+class ByteBankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Column(
-      children: <Widget>[
+    return MaterialApp(
+      home: Scaffold(
+        body: FormularioTransferencia(),
+      ),
+    );
+  }
+}
+
+class FormularioTransferencia extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Criando Transferência'),
+      ),
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              decoration: InputDecoration(
+                labelText: 'Número da conta',
+                hintText: '0000',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TextField(
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
+              decoration: InputDecoration(
+                icon: Icon(Icons.monetization_on),
+                labelText: 'Valor',
+                hintText: '0.00',
+              ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text('Confirmar'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ListaTransferencias extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Transferências'),
+      ),
+      body: Column(children: <Widget>[
         ItemTransferencia(Transferencia(100.0, 1000)),
         ItemTransferencia(Transferencia(200.0, 2000)),
         ItemTransferencia(Transferencia(300.0, 3000)),
-        ]
+      ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
 
 class ItemTransferencia extends StatelessWidget {
-
   final Transferencia _transferencia;
-
   ItemTransferencia(this._transferencia);
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Card(
       child: ListTile(
         leading: Icon(Icons.monetization_on),
